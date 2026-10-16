@@ -11,26 +11,16 @@ class Forja {
 private:
     Catalogo catalogo;          
     Fila fila_encomendas;     
-
     Lista<Aventureiro> aventureiros;
 
-    void redimensionarAventureiros();
-
-    double calcularPontuacaoItem(int id_item, int id_aventureiro, 
-                                 int m_metricas, const std::string* nomes_metricas, 
-                                 const double* pesos_metricas) const;
-
-    // Algoritmo de ordenação (MergeSort/QuickSort interno)
-    void ordenarRecomendacoes(int* ids_itens, double* pontuacoes, int n) const;
+    // Usa catalogo e aventureiro da lista para calcular o vetor de build
+    void calcularVetorBuild(int id_aventureiro, int* vetor_build) const;
 
 public:
     Forja();
     ~Forja();
 
-    // --- Processador de Entrada ---
-    bool processarComando(const std::string& linha);
-
-    // E <modo> : Altera a representação da matriz do catálogo ('L', 'T' ou 'C')
+    // E <modo> : Altera a representação da matriz do catálogo ('L' ou 'T')
     void alterarModo(char modo);
 
     // A <nome> : Cadastra um novo Atributo
@@ -40,7 +30,7 @@ public:
     void cadastrarItem(const std::string& nome);
 
     // M <id_item> <id_atributo> <valor> : Define ou modifica um modificador no catálogo
-    void difinirModificador(int id_item, int id_atributo, int valor);
+    void definirModificador(int id_item, int id_atributo, int valor);
 
     // H <nome> : Cadastra um novo Aventureiro
     void cadastrarAventureiro(const std::string& nome);
@@ -55,22 +45,22 @@ public:
     void desequiparPecaAventureiro(int id_aventureiro);
 
     // LI <id_item> : Lista todos os modificadores de um item
-    void consultarItem(int id_item) const;
+    void consultarItem(int id_item);
 
     // LA <id_atributo> : Lista todos os itens com modificadores não-nulos para um determinado atributo
-    void consultarAtributo(int id_atributo) const;
+    void consultarAtributo(int id_atributo);
 
     // LH <id_aventureiro> : Lista vetor de build de cada atributo do aventureiro
-    void consultarBuild(int id_aventureiro) const;
+    void consultarBuild(int id_aventureiro);
 
     // Q <id_aventureiro> <n> <m> <M_1> <w_1> ... <M_m> <w_m> : Consulta de recomendação de itens
     void consultarRecomendacao(int id_aventureiro, int n_recomendacoes, int m_metricas, 
-                  const std::string* nomes_metricas, const double* pesos_metricas) const;
+                  const std::string* nomes_metricas, const double* pesos_metricas);
 
     // --- Funcionalidades de Pontos Extras ---
 
     // LF <id_atributo> <valor_min> <valor_max> : Consulta de itens por faixa de valores
-    void consultarItensNaFaixa(int id_atributo, int valor_min, int valor_max) const;
+    void consultarItensNaFaixa(int id_atributo, int valor_min, int valor_max);
 
     // --- Consultores e Métricas para Análise Experimental e Testes ---
     // int getNumAventureiros() const;

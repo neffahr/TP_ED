@@ -3,14 +3,16 @@
 
 class Pilha {
 private:
-    int tamanho;
     int* id_itens;          
-    int topo;
+    int tamanho;
+    int capacidade;
+
+    static const int TAMANHO_INICIAL = 5;
     
     void redimensionarPilha();
 
 public:
-    Pilha(int capacidade_inicial);
+    Pilha();
     ~Pilha();
 
     void empilhar(int id_item);

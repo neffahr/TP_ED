@@ -7,7 +7,6 @@ struct Item {
     int id;
     std::string nome;
 
-    Item();
     Item(int id, const std::string& nome);
 };
 
