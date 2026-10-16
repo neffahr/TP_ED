@@ -32,7 +32,8 @@ private:
     ) const;
 
     // Algoritmo de ordenação (MergeSort/QuickSort interno)
-    static void ordenarRecomendacoes(int* ids_itens, double* pontuacoes, int n);
+    static void ordenar(int* ids_itens);
+    int pesquisaBinaria(int valor_mod) const;
 
 public:
     Catalogo();
@@ -58,6 +59,7 @@ public:
     int calcularPoder(int id_item) const;
     double calcularEquilibrio(int id_item) const;
     double calcularSinergia(int id_item, const int* vetor_build) const;
+    void ordenarRecomendacoes(int* ids_itens, double* pontuacoes, int n);
 };
 
 #endif

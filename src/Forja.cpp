@@ -80,11 +80,11 @@ void Forja::trabalharTurnos(int k) {
 // D <id_aventureiro> : Desequipa a última peça
 void Forja::desequiparPecaAventureiro(int id_aventureiro) {
     Aventureiro& av = aventureiros.getRegistro(id_aventureiro);
-    
-    if (av.build.vazia()) {
+
+    int id_item = av.build.desempilhar();
+    if (id_item == -1) {
         std::cout << "D " << av.nome << " VAZIO\n";
     } else {
-        int id_item = av.build.desempilhar();
         std::string nome_item = catalogo.getNomeItem(id_item);
         std::cout << "D " << av.nome << " " << nome_item << "\n";
     }

@@ -19,14 +19,12 @@ public:
 
     int getTamanho() const;
     int getCapacidade() const;
-    T& getRegistro(int pos);
+    T& getRegistro(int pos); // Aproveita-se do fato de os elementos serem inseridos já ordenados por id
+
     bool vazia() const;
     void limpar();
 
     void insereFinal(const T& item);
-    T pesquisa(int pos) const;  // TODO: olhar se vai precisar de binária aqui ou coloca em outro canto
-    void imprime() const;
-
 };
 
 #endif
