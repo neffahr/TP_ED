@@ -5,7 +5,9 @@
 #include "Item.h"
 #include "Atributo.h"
 #include "Lista.h"
-#include "Matrizes.h"
+#include "Matriz.h"
+#include "MatrizCOO.h"
+#include "MatrizEncadeada.h"
 
 enum ModoMatriz { MODO_L, MODO_T };
 
@@ -19,11 +21,6 @@ private:
 
     void converterParaMatrizL();
     void converterParaMatrizT();
-    void limparMatrizL();
-    void limparMatrizT();
-
-    // Redimenciona a Matriz para cada novo item ou atributo
-    void redimencionarMatriz(int nova_l, int nova_c);
     
     double calcularPontuacaoItem(
         int id_item, int id_aventureiro, 
@@ -41,13 +38,14 @@ public:
 
     void definirModo(char modo); // 'L' ou 'T'
     char getModo() const;
-
-    int registrarItem(const std::string& nome);
-    int registrarAtributo(const std::string& nome);
+    
     std::string getNomeItem(int id_item) const;
     std::string getNomeAtributo(int id_atributo) const;
     int getNumItens() const;
     int getNumAtributos() const;
+
+    int registrarItem(const std::string& nome);
+    int registrarAtributo(const std::string& nome);
 
     void definirModificador(int id_item, int id_atributo, int valor);
     int obterModificador(int id_item, int id_atributo) const;
@@ -58,8 +56,8 @@ public:
     
     int calcularPoder(int id_item) const;
     double calcularEquilibrio(int id_item) const;
-    double calcularSinergia(int id_item, const int* vetor_build) const;
-    void ordenarRecomendacoes(int* ids_itens, double* pontuacoes, int n);
+    double calcularSinergia(int id_item, const int* vetor_build, int soma_vetor_build) const;
+    void calcularRecomendacoes(int* ids_itens, double* pontuacoes, int n);
 };
 
 #endif

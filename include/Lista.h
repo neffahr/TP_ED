@@ -20,6 +20,7 @@ public:
     int getTamanho() const;
     int getCapacidade() const;
     T& getRegistro(int pos); // Aproveita-se do fato de os elementos serem inseridos já ordenados por id
+    const T& getRegistro(int pos) const;
 
     bool vazia() const;
     void limpar();

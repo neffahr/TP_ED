@@ -39,6 +39,12 @@ T& Lista<T>::getRegistro(int pos) {
 }
 
 template <typename T>
+const T& Lista<T>::getRegistro(int pos) const {
+    if (pos < 0 || pos >= tamanho) { return nullptr; }
+    return itens[pos];
+}
+
+template <typename T>
 bool Lista<T>::vazia() const { return tamanho == 0; }
 
 template <typename T>
