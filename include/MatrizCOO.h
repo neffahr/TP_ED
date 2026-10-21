@@ -11,16 +11,19 @@ private:
     int* colunas;
     int* valores;
 
-    void InsereElemento(int i, int j, int v);
-    void RemoveElemento(int p);
     void Cresce();
+    void insereElemento(int i, int j, int v);
+    void removeElemento(int p);
+    int BuscaBinariaGet(int i, int j) const;
+    int BuscaBinariaLinha(int i) const;
 
 public:
     MatrizCOO(int linhas, int colunas);
     virtual ~MatrizCOO() override;
-
+    
     int Get(int i, int j) const override;
     void Set(int i, int j, int v) override;
+
     int getLinha(int i, int*& cols, int*& modificadores) const override;
     void redimencionarMatriz(int l, int c) override;
     int somarLinha(int i) const override;

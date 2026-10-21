@@ -36,10 +36,8 @@ void MatrizCOO::Cresce() {
     tamanhoMAX = novo;
 }
 
-void MatrizCOO::InsereElemento(int i, int j, int v) {
-    if (tamanho == tamanhoMAX) {
-        Cresce();
-    }
+void MatrizCOO::insereElemento(int i, int j, int v) {
+    if (tamanho == tamanhoMAX) { Cresce(); }
     
     int p = tamanho;
     while (p > 0 && (linhas[p-1] > i || (linhas[p-1] == i && colunas[p-1] > j))) {
@@ -55,46 +53,88 @@ void MatrizCOO::InsereElemento(int i, int j, int v) {
     tamanho++;
 }
 
-int MatrizCOO::Get(int i, int j) const {
-    if (i < 0 || i >= l || j < 0 || j >= c) {
-        throw "Posicao invalida";
+void MatrizCOO::removeElemento(int p) {
+    for (int q = p; q < tamanho - 1; q++) {
+        linhas[q] = linhas[q+1]; colunas[q] = colunas[q+1];
+        valores[q] = valores[q+1];
     }
-    
-    for (int p = 0; p < tamanho; p++) {
-        if (linhas[p] == i && colunas[p] == j) {
-            return valores[p];
+    tamanho--;
+}
+
+int MatrizCOO::BuscaBinariaGet(int i, int j) const{
+    int inicio = 0;
+    int fim = tamanho - 1;
+
+    while (inicio <= fim) {
+        int meio = inicio + (fim - inicio) / 2;
+
+        if (linhas[meio] == i && colunas[meio] == j) return meio;
+
+        if (linhas[meio] < i || (linhas[meio] == i && colunas[meio] < j)) {
+            inicio = meio + 1;
+        } else {
+            fim = meio - 1;
         }
     }
+
+    return -1;
+}
+
+int MatrizCOO::BuscaBinariaLinha(int i) const{
+    int inicio = 0;
+    int fim = tamanho - 1;
+    int pos = tamanho;
+
+    while (inicio <= fim) {
+        int meio = inicio + (fim - inicio) / 2;
+
+        if (linhas[meio] >= i) {
+            pos = meio;
+            fim = meio - 1;
+        } else inicio = meio + 1;
+    }
+
+    return pos;
+}
+
+int MatrizCOO::Get(int i, int j) const {
+    if (i < 0 || i >= l || j < 0 || j >= c) throw "Posicao invalida";
     
+    int pos = BuscaBinariaGet(i, j);
+    if (pos != -1) return valores[pos];
+
     return 0;
 }
 
 void MatrizCOO::Set(int i, int j, int v) {
-    if (i < 0 || i >= l || j < 0 || j >= c) {
-        throw "Posicao invalida";
-    }
+    if (i < 0 || i >= l || j < 0 || j >= c) throw "Posicao invalida";
     
     for (int p = 0; p < tamanho; p++) {
         if (linhas[p] == i && colunas[p] == j) {
-            if (v == 0) {
-                RemoveElemento(p);
-            } else {
-                valores[p] = v; 
-            }
+            if (v == 0) removeElemento(p);
+            else valores[p] = v; 
             return;
         }
     }
 
-    // Se não encontrou no laço e o valor for diferente de 0, aloca-o em ordem
-    if (v != 0.0) {
-        InsereElemento(i, j, v);
+    if (v != 0) insereElemento(i, j, v);
+}
+
+void MatrizCOO::redimencionarMatriz(int l, int c) {
+    if (l > this->l) this->l = l;
+    if (c > this->c) this->c = c;
+}
+
+int MatrizCOO::somarLinha(int i) const {
+    if (i < 0 || i >= l) throw "Posicao invalida";
+
+    int soma = 0;
+    int pos = BuscaBinariaLinha(i);
+
+    while (pos < tamanho && linhas[pos] == i) {
+        soma += valores[pos];
+        pos++;
     }
-}
 
-void MatrizEncadeada::redimencionarMatriz(int l, int c) {
-
-}
-
-int MatrizEncadeada::somarLinha(int i) const {
-    
+    return soma;
 }
