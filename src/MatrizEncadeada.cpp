@@ -46,9 +46,7 @@ Celula* MatrizEncadeada::AntColuna(int i, int j) const {
 }
 
 int MatrizEncadeada::Get(int i, int j) const {
-    if (i < 0 || i >= l || j < 0 || j >= c) {
-        return 0;
-    }
+    if (i < 0 || i >= l || j < 0 || j >= c) throw "Posicao invalida";
     
     Celula* ant = AntLinha(i, j);
     Celula* p = ant->proxLin;
@@ -60,28 +58,32 @@ int MatrizEncadeada::Get(int i, int j) const {
 }
 
 void MatrizEncadeada::Set(int i, int j, int v) {
-    if (i < 0 || i >= l || j < 0 || j >= c) {
-        throw "Posicao invalida";
-    }
+    if (i < 0 || i >= l || j < 0 || j >= c) throw "Posicao invalida";
     
     Celula* antL = AntLinha(i, j);
     Celula* antC = AntColuna(i, j);
     Celula* p = antL->proxLin;
 
+    // Caso 1: elemento existe na matriz
     if (p != nullptr && p->col == j) {
+        // existe e set para valor diferente de 0 
         if (v != 0) {
             p->val = v; 
             return;
         }
+        // existe e set para 0
         antL->proxLin = p->proxLin;
         antC->proxCol = p->proxCol;
         delete p;
         tamanho--;
         return;
     }
-    if (v == 0) return;
-    Celula* nova = new Celula{i, j, v, antL->proxLin, antC->proxCol};
 
+    // Caso 2: Não existe e set para 0
+    if (v == 0) return;
+
+    // Caso 3: Não existe e set para valor diferente de 0
+    Celula* nova = new Celula{i, j, v, antL->proxLin, antC->proxCol};
     antL->proxLin = nova;
     antC->proxCol = nova;
     tamanho++;
@@ -119,7 +121,37 @@ int MatrizEncadeada::getLinha(int i, int*& cols, int*& modificadores) const {
 }
 
 void MatrizEncadeada::redimencionarMatriz(int l, int c) {
+    if (l > this->l) {
+        Celula** novoCabLin = new Celula*[l];
 
+        for (int i = 0; i < this->l; i++) {
+            novoCabLin[i] = cabLin[i];
+        }
+
+        for (int i = this->l; i < l; i++) {
+            novoCabLin[i] = new Celula{i, -1, 0, nullptr, nullptr};
+        }
+
+        delete[] cabLin;
+        cabLin = novoCabLin;
+        this->l = l;
+    }
+
+    if (c > this->c) {
+        Celula** novoCabCol = new Celula*[c];
+
+        for (int j = 0; j < this->c; j++) {
+            novoCabCol[j] = cabCol[j];
+        }
+
+        for (int j = this->c; j < c; j++) {
+            novoCabCol[j] = new Celula{-1, j, 0, nullptr, nullptr};
+        }
+
+        delete[] cabCol;
+        cabCol = novoCabCol;
+        this->c = c;
+    }
 }
 
 int MatrizEncadeada::somarLinha(int i) const {
