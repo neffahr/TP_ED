@@ -120,6 +120,61 @@ void MatrizCOO::Set(int i, int j, int v) {
     if (v != 0) insereElemento(i, j, v);
 }
 
+int MatrizCOO::getLinha(int i, int*& cols, int*& modificadores) const {
+    if (i < 0 || i >= l) throw "Posicao invalida";
+
+    int inicio = BuscaBinariaLinha(i);
+
+    int qtd = 0;
+    int p = inicio;
+    while (p < tamanho && linhas[p] == i) {
+        qtd++;
+        p++;
+    }
+
+    if (qtd == 0) return 0;
+
+    cols = new int[qtd];
+    modificadores = new int[qtd];
+
+    p = inicio;
+    int idx = 0;
+    while (p < tamanho && linhas[p] == i) {
+        cols[idx] = colunas[p];
+        modificadores[idx] = valores[p];
+        idx++;
+        p++;
+    }
+
+    return qtd;
+}
+
+int MatrizCOO::getColuna(int j, int*& linhas, int*& modificadores) const {
+    if (j < 0 || j >= c) throw "Posicao invalida";
+
+    int qtd = 0;
+    for (int p = 0; p < tamanho; p++) {
+        if (colunas[p] == j) {
+            qtd++;
+        }
+    }
+
+    if (qtd == 0) return 0;
+
+    linhas = new int[qtd];
+    modificadores = new int[qtd];
+
+    int idx = 0;
+    for (int p = 0; p < tamanho; p++) {
+        if (colunas[p] == j) {
+            linhas[idx] = linhas[p];
+            modificadores[idx] = valores[p];
+            idx++;
+        }
+    }
+    return qtd;
+}
+
 void MatrizCOO::redimencionarMatriz(int l, int c) {
     if (l > this->l) this->l = l;
     if (c > this->c) this->c = c;

@@ -96,7 +96,7 @@ void Forja::consultarItem(int id_item) {
     
     int* ids_atributos = nullptr;
     int* valores = nullptr;
-    int qtd_mod = catalogo.getAtributosDoItem(id_item, &ids_atributos, &valores);
+    int qtd_mod = catalogo.getAtributosDoItem(id_item, ids_atributos, valores);
     
     std::cout << "LI " << nome_item;
     if (qtd_mod == 0) { std::cout << " VAZIO\n"; } 
@@ -118,7 +118,7 @@ void Forja::consultarAtributo(int id_atributo) {
     
     int* ids_itens = nullptr;
     int* valores = nullptr;
-    int qtd_itens = catalogo.getItensDoAtributo(id_atributo, &ids_itens, &valores);
+    int qtd_itens = catalogo.getItensDoAtributo(id_atributo, ids_itens, valores);
     
     std::cout << "LA " << nome_atributo;
     if (qtd_itens == 0) { std::cout << " VAZIO\n"; }
@@ -202,7 +202,7 @@ void Forja::consultarItensNaFaixa(int id_atributo, int valor_min, int valor_max)
     
     int* ids_itens = nullptr;
     int* valores = nullptr;
-    int qtd_itens = catalogo.getItensNaFaixa(id_atributo, valor_min, valor_max, &ids_itens, &valores);
+    int qtd_itens = catalogo.getItensNaFaixa(id_atributo, valor_min, valor_max, ids_itens, valores);
 
     std::cout << "LF " << nome_atributo;
     if (qtd_itens == 0) { std::cout << " VAZIO\n"; } 

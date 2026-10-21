@@ -18,7 +18,7 @@ void Catalogo::converterParaMatrizL() {
     if (matriz_mods != nullptr) {
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < c; j++) {
-                double v = matriz_mods->Get(i, j);
+                int v = matriz_mods->Get(i, j);
                 if (v != 0.0) {
                     nova->Set(i, j, v);
                 }
@@ -38,7 +38,7 @@ void Catalogo::converterParaMatrizT() {
     if (matriz_mods != nullptr) {
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < c; j++) {
-                double v = matriz_mods->Get(i, j);
+                int v = matriz_mods->Get(i, j);
                 if (v != 0.0) {
                     nova->Set(i, j, v);
                 }
@@ -101,112 +101,27 @@ int Catalogo::registrarAtributo(const std::string& nome) {
 
 void Catalogo::definirModificador(int id_item, int id_atributo, int valor) {
     if (matriz_mods != nullptr) {
-        matriz_mods->Set(id_item, id_atributo, static_cast<double>(valor));
+        matriz_mods->Set(id_item, id_atributo, valor);
     }
 }
 
 int Catalogo::obterModificador(int id_item, int id_atributo) const {
     if (matriz_mods == nullptr) return 0;
-    return static_cast<int>(matriz_mods->Get(id_item, id_atributo));
+    return matriz_mods->Get(id_item, id_atributo);
 }
 
 
 // Consultas
-int Catalogo::getAtributosDoItem(int id_item, int** ids_atributos, int** valores) {
-    int c = getNumAtributos();
-    int count = 0;
-
-    for (int j = 0; j < c; j++) {
-        if (obterModificador(id_item, j) != 0) {
-            count++;
-        }
-    }
-
-    if (count == 0) {
-        *ids_atributos = nullptr;
-        *valores = nullptr;
-        return 0;
-    }
-
-    *ids_atributos = new int[count];
-    *valores = new int[count];
-
-    int idx = 0;
-    for (int j = 0; j < c; j++) {
-        int v = obterModificador(id_item, j);
-        if (v != 0) {
-            (*ids_atributos)[idx] = j;
-            (*valores)[idx] = v;
-            idx++;
-        }
-    }
-
-    return count;
+int Catalogo::getAtributosDoItem(int id_item, int*& ids_atributos, int*& valores) {
+    return matriz_mods->getLinha(id_item, ids_atributos, valores);
 }
 
-int Catalogo::getItensDoAtributo(int id_atributo, int** ids_itens, int** valores) {
-    int l = getNumItens();
-    int count = 0;
-
-    for (int i = 0; i < l; i++) {
-        if (obterModificador(i, id_atributo) != 0) {
-            count++;
-        }
-    }
-
-    if (count == 0) {
-        *ids_itens = nullptr;
-        *valores = nullptr;
-        return 0;
-    }
-
-    *ids_itens = new int[count];
-    *valores = new int[count];
-
-    int idx = 0;
-    for (int i = 0; i < l; i++) {
-        int v = obterModificador(i, id_atributo);
-        if (v != 0) {
-            (*ids_itens)[idx] = i;
-            (*valores)[idx] = v;
-            idx++;
-        }
-    }
-
-    return count;
+int Catalogo::getItensDoAtributo(int id_atributo, int*& ids_itens, int*& valores) {
+    return matriz_mods->getColuna(id_atributo, ids_itens, valores);
 }
 
-int Catalogo::getItensNaFaixa(int id_atributo, int valor_min, int valor_max, int** ids_itens, int** valores) {
-    int l = getNumItens();
-    int count = 0;
-
-    for (int i = 0; i < l; i++) {
-        int v = obterModificador(i, id_atributo);
-        if (v >= valor_min && v <= valor_max) {
-            count++;
-        }
-    }
-
-    if (count == 0) {
-        *ids_itens = nullptr;
-        *valores = nullptr;
-        return 0;
-    }
-
-    *ids_itens = new int[count];
-    *valores = new int[count];
-
-    int idx = 0;
-    for (int i = 0; i < l; i++) {
-        int v = obterModificador(i, id_atributo);
-        if (v >= valor_min && v <= valor_max) {
-            (*ids_itens)[idx] = i;
-            (*valores)[idx] = v;
-            idx++;
-        }
-    }
-
-    return count;
+int Catalogo::getItensNaFaixa(int id_atributo, int valor_min, int valor_max, int*& ids_itens, int*& valores) {
+    
 }
 
 

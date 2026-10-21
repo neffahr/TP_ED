@@ -99,11 +99,7 @@ int MatrizEncadeada::getLinha(int i, int*& cols, int*& modificadores) const {
         p = p->proxLin;
     }
 
-    if (qtd == 0) {
-        cols = nullptr;
-        modificadores = nullptr;
-        return 0;
-    }
+    if (qtd == 0) return 0;
 
     cols = new int[qtd];
     modificadores = new int[qtd];
@@ -116,7 +112,32 @@ int MatrizEncadeada::getLinha(int i, int*& cols, int*& modificadores) const {
         p = p->proxLin;
         idx++;
     }
-    
+    return qtd;
+}
+
+int MatrizEncadeada::getColuna(int j, int*& linhas, int*& modificadores) const {
+    if (j < 0 || j >= c) throw "Posicao invalida";
+
+    int qtd = 0;
+    Celula* p = cabCol[j]->proxCol;
+    while (p != nullptr) {
+        qtd++;
+        p = p->proxCol;
+    }
+
+    if (qtd == 0) return 0;
+
+    linhas = new int[qtd];
+    modificadores = new int[qtd];
+
+    p = cabCol[j]->proxCol;
+    int idx = 0;
+    while (p != nullptr) {
+        linhas[idx] = p->lin;
+        modificadores[idx] = p->val;
+        p = p->proxCol;
+        idx++;
+    }
     return qtd;
 }
 
