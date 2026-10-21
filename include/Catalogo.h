@@ -28,8 +28,6 @@ private:
         const double* pesos_metricas
     ) const;
 
-    // Algoritmo de ordenação (MergeSort/QuickSort interno)
-    static void ordenar(int* ids_itens);
     int pesquisaBinaria(int valor_mod) const;
 
 public:
@@ -56,8 +54,7 @@ public:
     
     int calcularPoder(int id_item) const;
     double calcularEquilibrio(int id_item) const;
-    double calcularSinergia(int id_item, const int* vetor_build, int soma_vetor_build) const;
-    void calcularRecomendacoes(int* ids_itens, double* pontuacoes, int n);
+    double calcularSinergia(int id_item, const double* vetor_build, int soma_vetor_build) const;
 };
 
 #endif

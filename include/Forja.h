@@ -14,7 +14,9 @@ private:
     Lista<Aventureiro> aventureiros;
 
     // Usa catalogo e aventureiro da lista para calcular o vetor de build
-    void calcularVetorBuild(int id_aventureiro, int* vetor_build) const;
+    void calcularVetorBuild(int id_aventureiro, double* vetor_build);
+    // Algoritmo de ordenação (MergeSort/QuickSort)
+    static void ordenar(int* ids_itens, double *valores, int n);
 
 public:
     Forja();
@@ -57,15 +59,10 @@ public:
     void consultarRecomendacao(int id_aventureiro, int n_recomendacoes, int m_metricas, 
                   const std::string* nomes_metricas, const double* pesos_metricas);
 
-    // --- Funcionalidades de Pontos Extras ---
+    // --- Pontos Extras ---
 
     // LF <id_atributo> <valor_min> <valor_max> : Consulta de itens por faixa de valores
     void consultarItensNaFaixa(int id_atributo, int valor_min, int valor_max);
-
-    // --- Consultores e Métricas para Análise Experimental e Testes ---
-    // int getNumAventureiros() const;
-    // int getTamanhoFila() const;
-    // char getModoMatriz() const;
 };
 
 #endif
