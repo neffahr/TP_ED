@@ -13,7 +13,10 @@ private:
 
 public:
     Pilha();
+    Pilha(const Pilha& outra);
     ~Pilha();
+
+    Pilha& operator=(const Pilha& outra);
 
     void empilhar(int id_item);
     int desempilhar();

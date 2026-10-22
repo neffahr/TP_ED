@@ -5,7 +5,30 @@ Pilha::Pilha() {
     tamanho = 0;
     id_itens = new int[capacidade];
 }
+
+Pilha::Pilha(const Pilha& outra): id_itens(new int[outra.capacidade]), tamanho(outra.tamanho), capacidade(outra.capacidade) {
+    for (int i = 0; i < tamanho; i++) {
+        id_itens[i] = outra.id_itens[i];
+    }
+}
+
 Pilha::~Pilha() { delete[] id_itens; }
+
+Pilha& Pilha::operator=(const Pilha& outra) {
+    if (this != &outra) {
+        int* novos_itens = new int[outra.capacidade];
+        for (int i = 0; i < outra.tamanho; i++) {
+            novos_itens[i] = outra.id_itens[i];
+        }
+
+        delete[] id_itens;
+        id_itens = novos_itens;
+        tamanho = outra.tamanho;
+        capacidade = outra.capacidade;
+    }
+
+    return *this;
+}
 
 void Pilha::redimensionarPilha() {
     int nova_capacidade = capacidade * 2;

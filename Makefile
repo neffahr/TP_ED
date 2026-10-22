@@ -26,6 +26,14 @@ $(TARGET): $(OBJECTS) | $(BIN_DIR)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+# Executa o programa compilado diretamente
+run: $(TARGET)
+	./$(TARGET)
+
+# Regra para execução com Valgrind
+valgrind: $(TARGET)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --error-exitcode=1 ./$(TARGET)
+
 # Criação dos diretórios caso não existam
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
@@ -37,4 +45,4 @@ $(OBJ_DIR):
 clean:
 	rm -f $(OBJ_DIR)/*.o $(BIN_DIR)/*
 
-.PHONY: all clean
+.PHONY: all clean run valgrind

@@ -8,6 +8,7 @@ Forja::~Forja() {}
 
 void Forja::alterarModo(char modo) {
     catalogo.definirModo(modo); 
+    std::cout << "E " << catalogo.getModo() << "\n";
 }
 
 // A <nome> : Cadastra um novo Atributo
@@ -57,7 +58,7 @@ void Forja::trabalharTurnos(int k) {
     int ids_itens[k];
     
     int forjadas = 0;
-    while (forjadas < k && !fila_encomendas.vazia()) {
+    while (!fila_encomendas.vazia() && forjadas < k) {
         Encomenda enc = fila_encomendas.desenfileirar();
         
         ids_aventureiros[forjadas] = enc.id_aventureiro;
