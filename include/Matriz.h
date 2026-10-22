@@ -7,8 +7,8 @@ protected:
     int c; // Número de colunas
 
 public:
-    Matriz::Matriz(int linhas, int colunas) : l(linhas), c(colunas) {}
-    virtual ~Matriz();
+    Matriz(int linhas, int colunas) : l(linhas), c(colunas) {}
+    virtual ~Matriz() {}
 
     // Leituras e escritas
     virtual int Get(int i, int j) const = 0;

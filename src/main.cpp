@@ -8,7 +8,6 @@ int main() {
     Forja forja;
     string comando;
 
-    // Loop contínuo que processa os comandos até o fim do arquivo (EOF) ou entrada do terminal
     while (cin >> comando) {
         if (comando == "E") {
             char modo;

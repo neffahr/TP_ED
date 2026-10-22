@@ -1,4 +1,7 @@
 #include "Lista.h"
+#include "Atributo.h"
+#include "Aventureiro.h"
+#include "Item.h"
 
 template <typename T>
 Lista<T>::Lista() {
@@ -34,13 +37,13 @@ int Lista<T>::getCapacidade() const { return capacidade; }
 
 template <typename T>
 T& Lista<T>::getRegistro(int pos) {
-    if (pos < 0 || pos >= tamanho) { return nullptr; }
+    if (pos < 0 || pos >= tamanho) { throw "Posicao da lista invalida"; }
     return itens[pos];
 }
 
 template <typename T>
 const T& Lista<T>::getRegistro(int pos) const {
-    if (pos < 0 || pos >= tamanho) { return nullptr; }
+    if (pos < 0 || pos >= tamanho) { throw "Posicao da lista invalida"; }
     return itens[pos];
 }
 
@@ -58,3 +61,7 @@ void Lista<T>::insereFinal(const T& item) {
     itens[tamanho] = item;
     tamanho++;
 }
+
+template class Lista<Atributo>;
+template class Lista<Aventureiro>;
+template class Lista<Item>;

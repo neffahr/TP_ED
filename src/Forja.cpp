@@ -198,7 +198,7 @@ void Forja::calcularVetorBuild(int id_aventureiro, double* vetor_build) {
     }
 }
 
-static void ordenar(int* ids_itens, double* valores, int n) {
+void Forja::ordenar(int* ids_itens, double* valores, int n) {
     for (int i = 1; i < n; i++) {
         int key_id = ids_itens[i];
         double key_val = valores[i];
