@@ -50,7 +50,6 @@ public:
 
     int getAtributosDoItem(int id_item, int*& ids_atributos, int*& valores);
     int getItensDoAtributo(int id_atributo, int*& ids_itens, int*& valores);
-    int getItensNaFaixa(int id_atributo, int valor_min, int valor_max, int*& ids_itens, int*& valores);
     
     int calcularPoder(int id_item) const;
     double calcularEquilibrio(int id_item) const;

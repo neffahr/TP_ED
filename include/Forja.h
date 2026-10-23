@@ -58,11 +58,6 @@ public:
     // Q <id_aventureiro> <n> <m> <M_1> <w_1> ... <M_m> <w_m> : Consulta de recomendação de itens
     void consultarRecomendacao(int id_aventureiro, int n_recomendacoes, int m_metricas, 
                   const std::string* nomes_metricas, const double* pesos_metricas);
-
-    // --- Pontos Extras ---
-
-    // LF <id_atributo> <valor_min> <valor_max> : Consulta de itens por faixa de valores
-    void consultarItensNaFaixa(int id_atributo, int valor_min, int valor_max);
 };
 
 #endif

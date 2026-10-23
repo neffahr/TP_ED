@@ -80,11 +80,6 @@ int main() {
             delete[] nomes_metricas;
             delete[] pesos_metricas;
         } 
-        else if (comando == "LF") {
-            int id_atributo, valor_min, valor_max;
-            cin >> id_atributo >> valor_min >> valor_max;
-            forja.consultarItensNaFaixa(id_atributo, valor_min, valor_max);
-        }
     }
 
     return 0;

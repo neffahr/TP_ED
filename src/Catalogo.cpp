@@ -120,63 +120,6 @@ int Catalogo::getItensDoAtributo(int id_atributo, int*& ids_itens, int*& valores
     return matriz_mods->getColuna(id_atributo, ids_itens, valores);
 }
 
-int Catalogo::getItensNaFaixa(int id_atributo, int valor_min, int valor_max, int*& ids_itens, int*& valores) {
-    int* ids_aux = nullptr;
-    int* vals_aux = nullptr;
-    int qtd_itens = getItensDoAtributo(id_atributo, ids_aux, vals_aux);
-    int qtd_itens_faixa = 0;
-    int total_itens = getNumItens();
-
-    // Laço que avalia total de itens
-    int idx_item = 0;
-    for (int i = 0; i < total_itens; i++) {
-        int v = 0;
-        // Se o item i está na lista de não-nulos (coluna do atributo) pega valor dele
-        if (idx_item < qtd_itens && i == ids_aux[idx_item]) {
-            v = vals_aux[idx_item];
-            idx_item++;
-        }
-        // Se nao estiver o valor é 0
-        if (v >= valor_min && v <= valor_max) {
-            qtd_itens_faixa++;
-        }
-    }
-
-    if (qtd_itens_faixa == 0) {
-        delete[] ids_aux;
-        delete[] vals_aux;
-        return 0;
-    }
-
-    ids_itens = new int[qtd_itens_faixa];
-    valores = new int[qtd_itens_faixa];
-
-    // Laço que filtra valores
-    idx_item = 0;
-    int idx_itens_faixa = 0;
-    for (int i = 0; i < total_itens; i++) {
-        int v = 0;
-        // Se o item i está na lista de não-nulos (coluna do atributo) pega valor dele
-        if (idx_item < qtd_itens && i == ids_aux[idx_item]) {
-            v = vals_aux[idx_item];
-            idx_item++;
-        }
-
-        // Se nao estiver o valor é 0
-        if (v >= valor_min && v <= valor_max) {
-            ids_itens[idx_itens_faixa] = i;
-            valores[idx_itens_faixa] = v;
-            idx_itens_faixa++;
-        }
-    }
-
-    // Libera a memória alocada temporariamente por getItensDoAtributo
-    delete[] ids_aux;
-    delete[] vals_aux;
-    return qtd_itens_faixa;
-}
-
-
 // Métricas
 int Catalogo::calcularPoder(int id_item) const {
     return matriz_mods->somarLinha(id_item);

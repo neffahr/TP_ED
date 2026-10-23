@@ -331,25 +331,3 @@ void Forja::consultarRecomendacao(int id_aventureiro, int n, int m, const std::s
     delete[] pontuacoes_candidatos;
     
 }
-
-// LF <id_atributo> <valor_min> <valor_max> : Consulta de itens por faixa de valores (ponto extra)
-void Forja::consultarItensNaFaixa(int id_atributo, int valor_min, int valor_max) {
-    std::string nome_atributo = catalogo.getNomeAtributo(id_atributo);
-    
-    int* ids_itens = nullptr;
-    int* valores = nullptr;
-    int qtd_itens = catalogo.getItensNaFaixa(id_atributo, valor_min, valor_max, ids_itens, valores);
-
-    std::cout << "LF " << nome_atributo;
-    if (qtd_itens == 0) { std::cout << " VAZIO\n"; } 
-    else {
-        
-        for (int i = 0; i < qtd_itens; i++) {
-            std::cout << " item_" << (i+1) << " " << ids_itens[i] << " " << valores[i];
-        }
-        std::cout << "\n";
-    }
-
-    delete[] ids_itens;
-    delete[] valores;
-}
