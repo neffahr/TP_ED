@@ -55,7 +55,8 @@ void MatrizCOO::insereElemento(int i, int j, int v) {
 
 void MatrizCOO::removeElemento(int p) {
     for (int q = p; q < tamanho - 1; q++) {
-        linhas[q] = linhas[q+1]; colunas[q] = colunas[q+1];
+        linhas[q] = linhas[q+1]; 
+        colunas[q] = colunas[q+1];
         valores[q] = valores[q+1];
     }
     tamanho--;
@@ -167,7 +168,7 @@ int MatrizCOO::getColuna(int j, int*& linhas, int*& modificadores) const {
     int idx = 0;
     for (int p = 0; p < tamanho; p++) {
         if (colunas[p] == j) {
-            linhas[idx] = linhas[p];
+            linhas[idx] = this->linhas[p];
             modificadores[idx] = valores[p];
             idx++;
         }

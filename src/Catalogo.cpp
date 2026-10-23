@@ -186,7 +186,8 @@ double Catalogo::calcularEquilibrio(int id_item) const {
     int num_atributos = atributos.getTamanho();
     if (num_atributos == 0) return 1.0; 
 
-    int* cols; int* vals;
+    int* cols = nullptr;
+    int* vals = nullptr;
     int qtd = matriz_mods->getLinha(id_item, cols, vals);
 
     double mu = (1.0 * calcularPoder(id_item)) / num_atributos;
@@ -200,6 +201,7 @@ double Catalogo::calcularEquilibrio(int id_item) const {
     // Somatório (0 - mu)^2 para as células nulas (num_atributos - qtd celulas)
     soma_desvios += (num_atributos - qtd) * (mu * mu);
     
+    delete[] cols;
     delete[] vals;
 
     double sigma = std::sqrt(soma_desvios / num_atributos);
@@ -210,7 +212,8 @@ double Catalogo::calcularSinergia(int id_item, const double* vetor_build, int so
     int num_atributos = atributos.getTamanho();
     if (num_atributos == 0) return 0.0;
 
-    int* cols; int* vals;
+    int* cols = nullptr;
+    int* vals = nullptr;
     int qtd = matriz_mods->getLinha(id_item, cols, vals);
 
     int prod_interno = 0.0;

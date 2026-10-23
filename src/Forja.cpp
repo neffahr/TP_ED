@@ -281,7 +281,7 @@ void Forja::consultarRecomendacao(int id_aventureiro, int n, int m, const std::s
     }
 
     // Descarta dos itens que o aventureiro já possui equipados na sua build atual
-    bool* equipado = new bool[num_itens];
+    bool* equipado = new bool[num_itens]();
     const Aventureiro& av = aventureiros.getRegistro(id_aventureiro);
     Pilha pilha_aux = av.build;
     while (!pilha_aux.vazia()) {
