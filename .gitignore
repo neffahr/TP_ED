@@ -2,3 +2,4 @@ bin/*.out
 obj/*.o
 input.txt
 output*.txt
+input*.txt

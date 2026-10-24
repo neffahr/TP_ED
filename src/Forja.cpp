@@ -3,7 +3,8 @@
 #include <iomanip>
 #include <cmath>
 
-Forja::Forja() {}
+Forja::Forja() : catalogo() {}
+Forja::Forja(char modo) : catalogo(modo) {}
 Forja::~Forja() {}
 
 void Forja::alterarModo(char modo) {

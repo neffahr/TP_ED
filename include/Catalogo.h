@@ -32,6 +32,7 @@ private:
 
 public:
     Catalogo();
+    Catalogo(char modo);
     ~Catalogo();
 
     void definirModo(char modo); // 'L' ou 'T'

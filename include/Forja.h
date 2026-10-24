@@ -20,6 +20,7 @@ private:
 
 public:
     Forja();
+    Forja(char modo);
     ~Forja();
 
     // E <modo> : Altera a representação da matriz do catálogo ('L' ou 'T')

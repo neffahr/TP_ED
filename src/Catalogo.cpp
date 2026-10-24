@@ -1,9 +1,16 @@
 #include "Catalogo.h"
 #include <cmath>
 
-Catalogo::Catalogo() {
-    modo_atual = MODO_T;
-    matriz_mods = new MatrizCOO(0, 0);
+Catalogo::Catalogo() : Catalogo('T') {}
+
+Catalogo::Catalogo(char modo) {
+    if (modo == 'L') {
+        modo_atual = MODO_L;
+        matriz_mods = new MatrizEncadeada(0, 0);
+    } else {
+        modo_atual = MODO_T;
+        matriz_mods = new MatrizCOO(0, 0);
+    }
 }
 
 Catalogo::~Catalogo() { delete matriz_mods; }
