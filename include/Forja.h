@@ -15,7 +15,7 @@ private:
 
     // Usa catalogo e aventureiro da lista para calcular o vetor de build
     void calcularVetorBuild(int id_aventureiro, double* vetor_build);
-    // Algoritmo de ordenação (MergeSort/QuickSort)
+    // Algoritmo de ordenação (Insertion Sort)
     static void ordenar(int* ids_itens, double *valores, int n);
 
 public:

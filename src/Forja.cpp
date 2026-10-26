@@ -181,7 +181,7 @@ void Forja::calcularVetorBuild(int id_aventureiro, double* vetor_build) {
     const Aventureiro& av = aventureiros.getRegistro(id_aventureiro);
     Pilha pilha_aux = av.build;
 
-    // Passaa por cada item na build e acumula modificadores não-nulos
+    // Passa por cada item na build e acumula modificadores não-nulos
     while (!pilha_aux.vazia()) {
         int id_item = pilha_aux.desempilhar();
 
@@ -234,36 +234,37 @@ void Forja::ordenar(int* ids_itens, double* valores, int n) {
 void Forja::consultarRecomendacao(int id_aventureiro, int n, int m, const std::string* nomes_metricas, const double* pesos_metricas) {
     int num_itens = catalogo.getNumItens();
     int num_atributos = catalogo.getNumAtributos();
-
+    
     if (num_itens == 0) return;
-
-    // Monta vetor de build e calcula soma dos quadrados do vetor para sinergia
-    double* bh = new double[num_atributos];
-    calcularVetorBuild(id_aventureiro, bh);
-
-    double soma_quadrados_build = 0.0;
-    for (int a = 0; a < num_atributos; a++) {
-        soma_quadrados_build += bh[a] * bh[a];
-    }
-
+    
     // Avalia cada métrica informada e calcula pontuações para cada item
+    double* bh = new double[num_atributos];
     double* pontuacoes_itens = new double[num_itens]();
     for (int i = 0; i < m; i++) {
         std::string metrica = nomes_metricas[i];
         double peso = pesos_metricas[i];
+        double soma_quadrados_build = 0.0;
+        
+        // Monta vetor de build e calcula soma dos quadrados do vetor para sinergia
+        if (metrica == "SINERGIA") {
+            calcularVetorBuild(id_aventureiro, bh);
+            for (int a = 0; a < num_atributos; a++) {
+                soma_quadrados_build += bh[a] * bh[a];
+            }
+        }
 
         int* ids_itens = new int[num_itens];
         double* valores = new double[num_itens];
 
         // Calcula métrica para todos os itens do catalogo
-        for (int i = 0; i < num_itens; i++) {
-            ids_itens[i] = i;
+        for (int j = 0; j < num_itens; j++) {
+            ids_itens[j] = j;
             if (metrica == "PODER") {
-                valores[i] = catalogo.calcularPoder(i);
+                valores[j] = catalogo.calcularPoder(j);
             } else if (metrica == "EQUILIBRIO") {
-                valores[i] = catalogo.calcularEquilibrio(i);
+                valores[j] = catalogo.calcularEquilibrio(j);
             } else if (metrica == "SINERGIA") {
-                valores[i] = catalogo.calcularSinergia(i, bh, soma_quadrados_build);
+                valores[j] = catalogo.calcularSinergia(j, bh, soma_quadrados_build);
             }
         }
 
@@ -330,5 +331,4 @@ void Forja::consultarRecomendacao(int id_aventureiro, int n, int m, const std::s
     delete[] equipado;
     delete[] ids_candidatos;
     delete[] pontuacoes_candidatos;
-    
 }
