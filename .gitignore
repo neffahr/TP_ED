@@ -3,3 +3,4 @@ obj/*.o
 input.txt
 output*.txt
 input*.txt
+gerador_entradas.py

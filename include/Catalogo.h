@@ -21,12 +21,6 @@ private:
 
     void converterParaMatrizL();
     void converterParaMatrizT();
-    
-    double calcularPontuacaoItem(
-        int id_item, int id_aventureiro, 
-        int m_metricas, const std::string* nomes_metricas, 
-        const double* pesos_metricas
-    ) const;
 
     int pesquisaBinaria(int valor_mod) const;
 
