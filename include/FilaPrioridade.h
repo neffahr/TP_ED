@@ -23,12 +23,7 @@ private:
     void Desce(int i);
     void Redimensionar();
 
-    bool vemAntes(const NoHeap& a, const NoHeap& b) const {
-        if (a.prioridade != b.prioridade) {
-            return a.prioridade > b.prioridade;
-        }
-        return a.id_cliente < b.id_cliente;
-    }
+    bool vemAntes(const NoHeap& a, const NoHeap& b) const;
 
 public:
     FilaPrioridade(int capacidade = TAMANHO_INICIAL);
@@ -36,12 +31,12 @@ public:
 
     // Insere cliente com sua prioridade
     void Insere(int id_cliente, int prioridade);
+    
+    // Remove e retorna o cliente de maior prioridade
+    NoHeap Remove();
 
     // Consulta o cliente de maior prioridade
     NoHeap Maximo() const;
-
-    // Remove e retorna o cliente de maior prioridade
-    NoHeap Remove();
 
     // Funções utilitarias
     int getTamanho() const { return tamanho; }
