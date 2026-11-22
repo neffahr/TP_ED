@@ -1,7 +1,5 @@
 #include "Lista.h"
-#include "Atributo.h"
-#include "Aventureiro.h"
-#include "Item.h"
+#include "Cliente.h"
 
 template <typename T>
 Lista<T>::Lista() {
@@ -62,6 +60,4 @@ void Lista<T>::insereFinal(const T& item) {
     tamanho++;
 }
 
-template class Lista<Atributo>;
-template class Lista<Aventureiro>;
-template class Lista<Item>;
+template class Lista<Cliente>;

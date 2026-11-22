@@ -26,6 +26,7 @@ public:
     void limpar();
 
     void insereFinal(const T& item);
+    int pesquisa(T item) const; // pesquisa binária
 };
 
 #endif
