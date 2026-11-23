@@ -1,9 +1,10 @@
-#ifndef INDICE_H
-#define INDICE_H
+#ifndef INDICE_HPP
+#define INDICE_HPP
 
 #include <string>
-#include "Cliente.h"
+#include "Atributo.h"
 #include "Lista.h"
+#include "EstruturaIndice.h"
 #include "ArvoreAVL.h"
 #include "Hash.h"
 
@@ -11,41 +12,35 @@ enum ModoIndice { MODO_A, MODO_H };
 
 class Indice {
 private:
-    ModoIndice modo_atual;
-
+    ModoIndice modo;
     Lista<Atributo> atributos;
-    
+    EstruturaIndice* indice;
 
-    void converterParaMatrizL();
-    void converterParaMatrizT();
-
-    int pesquisaBinaria(int valor_mod) const;
+    void converterParaAVL();
+    void converterParaHash();
 
 public:
-    Indice();
-    Indice(char modo);
+    Indice(char modo = 'A');
     ~Indice();
 
-    void definirModo(char modo); // 'L' ou 'T'
-    char getModo() const;
-    
-    std::string getNomeItem(int id_item) const;
-    std::string getNomeAtributo(int id_atributo) const;
-    int getNumItens() const;
-    int getNumAtributos() const;
+    void definirModo(char modo);
 
-    int registrarItem(const std::string& nome);
+    // Cadastro de Atributos
     int registrarAtributo(const std::string& nome);
 
-    void definirModificador(int id_item, int id_atributo, int valor);
-    int obterModificador(int id_item, int id_atributo) const;
+    // Operações sobre o indice
+    void insere(int poder, int id_cliente);
+    void remove(int poder, int id_cliente);
 
-    int getAtributosDoItem(int id_item, int*& ids_atributos, int*& valores);
-    int getItensDoAtributo(int id_atributo, int*& ids_itens, int*& valores);
-    
-    int calcularPoder(int id_item) const;
-    double calcularEquilibrio(int id_item) const;
-    double calcularSinergia(int id_item, const double* vetor_build, int soma_vetor_build) const;
+    void buscaPontual(int poder, Lista<int>& resultado) const;
+    void buscaFaixa(int min, int max, Lista<DadoIndice>& resultado) const;
+
+    // Métodos Auxiliares
+    char getModo() const;
+    int getNumAtributos() const;
+    std::string getNomeAtributo(int id_atributo) const;
+    int getTamanho() const;
+    bool vazia() const;
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include "Lista.h"
 #include "Cliente.h"
+#include "EstruturaIndice.h"
 
 template <typename T>
 Lista<T>::Lista() {
@@ -46,12 +47,6 @@ const T& Lista<T>::getRegistro(int pos) const {
 }
 
 template <typename T>
-bool Lista<T>::vazia() const { return tamanho == 0; }
-
-template <typename T>
-void Lista<T>::limpar() { tamanho = 0; }
-
-template <typename T>
 void Lista<T>::insereFinal(const T& item) {
     if (tamanho == capacidade) {
         redimensionarLista();
@@ -60,4 +55,24 @@ void Lista<T>::insereFinal(const T& item) {
     tamanho++;
 }
 
+// Insertion Sort
+template <typename T>
+void Lista<T>::ordenar() {
+    for (int i = 1; i < tamanho; i++) {
+        T chave = itens[i];
+        int j = i - 1;
+
+        while (j >= 0 && chave < itens[j]) {
+            itens[j + 1] = itens[j];
+            j--;
+        }
+
+        itens[j + 1] = chave;
+    }
+}
+
+template <typename T>
+bool Lista<T>::vazia() const { return tamanho == 0; }
+
 template class Lista<Cliente>;
+template class Lista<DadoIndice>;

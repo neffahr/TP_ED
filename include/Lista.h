@@ -9,7 +9,7 @@ private:
     int tamanho;       // Número de elementos armazenados
     int capacidade;    // Tamanho alocado na memória
 
-    static const int TAMANHO_INICIAL = 10;
+    static const int TAMANHO_INICIAL = 16;
 
     void redimensionarLista();
 
@@ -22,11 +22,10 @@ public:
     T& getRegistro(int pos); // Aproveita-se do fato de os elementos serem inseridos já ordenados por id
     const T& getRegistro(int pos) const;
 
-    bool vazia() const;
-    void limpar();
-
     void insereFinal(const T& item);
-    int pesquisa(T item) const; // pesquisa binária
+    void ordenar();
+
+    bool vazia() const;
 };
 
 #endif

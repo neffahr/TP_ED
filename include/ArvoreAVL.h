@@ -1,22 +1,22 @@
 #ifndef ARVOREAVL_H
 #define ARVOREAVL_H
 
+#include "EstruturaIndice.h"
 #include "Lista.h"
 
 struct NoAVL {
-    int poder;          // Chave primária de ordenação
-    int id_cliente;     // Chave de desempate
-    int altura;         // Altura do nó
+    DadoIndice registro;
+
+    int altura; // Altura do nó
     NoAVL* esq;
     NoAVL* dir;
 
-    NoAVL(int poder, int id_cliente): poder(poder), id_cliente(id_cliente), altura(0), esq(nullptr), dir(nullptr) {}
+    NoAVL(int poder, int id_cliente): registro(DadoIndice(poder, id_cliente)), altura(0), esq(nullptr), dir(nullptr) {}
 };
 
-class ArvoreAVL {
+class ArvoreAVL : public EstruturaIndice {
 private:
     NoAVL* raiz;
-    int tamanho;
 
     int altura(NoAVL* p) const;
     int fatorBalanceamento(NoAVL* p) const;
@@ -31,29 +31,27 @@ private:
     NoAVL* menorNo(NoAVL* p) const;
 
     void buscaPontualRec(NoAVL* p, int poder, Lista<int>& resultado) const;
-    void buscaFaixaRec(NoAVL* p, int min, int max, Lista<int>& ids, Lista<int>& poderes) const;
-    void emOrdemRec(NoAVL* p, Lista<int>& ids, Lista<int>& poderes) const;
-    void limpaRec(NoAVL* p);
+    void buscaFaixaRec(NoAVL* p, int min, int max, Lista<DadoIndice>& resultado) const;
+    void emOrdemRec(NoAVL* p, Lista<DadoIndice>& registros) const;
 
 public:
     ArvoreAVL();
-    ~ArvoreAVL();
+    ~ArvoreAVL() override;
 
-    void insere(int poder, int id_cliente);
-    void remove(int poder, int id_cliente);
+    void insere(int poder, int id_cliente) override;
+    void remove(int poder, int id_cliente) override;
 
-    // Responde BP <poder> em ordem crescente de ID
-    void buscaPontual(int poder, Lista<int>& resultado) const;
+    // Responde BP <poder> em ordem crescente de id
+    void buscaPontual(int poder, Lista<int>& resultado) const override;
 
-    // Responde BF <min> <max> em ordem crescente de (poder, id_cliente)
-    void buscaFaixa(int min, int max, Lista<int>& ids, Lista<int>& poderes) const;
+    // Responde BF <min> <max> em ordem crescente de poder e depois id
+    void buscaFaixa(int min, int max, Lista<DadoIndice>& resultado) const override;
 
-    // Extrai todos os elementos para migração de modo (A -> H)
-    void exportarEmOrdem(Lista<int>& ids, Lista<int>& poderes) const;
+    // Extrai todos os elementos em ordem para migração de modo
+    void exportarElementos(Lista<DadoIndice>& resultado) const override;
 
-    int getTamanho() const;
-    bool vazia() const;
-    void limpa();
+    int getTamanho() const override;
+    bool vazia() const override;
 };
 
 #endif

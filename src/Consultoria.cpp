@@ -31,7 +31,7 @@ void Consultoria::cadastrarCliente(const std::string& nome, int k, const int* id
     Cliente novo_cliente(id_cliente, nome, build_densa, num_atributos);
     clientes.insereFinal(novo_cliente);
 
-    indice.insereCliente(novo_cliente.poder, id_cliente);
+    indice.insere(novo_cliente.poder, id_cliente);
 
     delete[] build_densa;
 
@@ -41,12 +41,12 @@ void Consultoria::cadastrarCliente(const std::string& nome, int k, const int* id
 // D <id_cliente> : Encerra atendimento do cliente e o remove do índice
 void Consultoria::encerrarCliente(int id_cliente) {
     const Cliente& c = clientes.getRegistro(id_cliente);
-    indice.removeCliente(c.poder, id_cliente);
+    indice.remove(c.poder, id_cliente);
 
     std::cout << "D " << c.nome << " " << c.poder << "\n";
 }
 
-// BP <poder> : Busca clientes ativos com poder exato (ordem crescente de ID)
+// BP <poder> : Busca clientes ativos com poder exato e mostra em ordem crescente de id
 void Consultoria::buscarPorPoder(int poder) const {
     Lista<int> ids_encontrados;
     indice.buscaPontual(poder, ids_encontrados);
@@ -57,27 +57,26 @@ void Consultoria::buscarPorPoder(int poder) const {
 
     else {
         for (int i = 0; i < ids_encontrados.getTamanho(); i++) {
-            std::cout << " cliente_" << (i + 1) << " " << ids_encontrados.pesquisa(i);
+            std::cout << " cliente_" << (i + 1) << " " << ids_encontrados.getRegistro(i);
         }
         std::cout << "\n";
     }
 }
 
-// BF <min> <max> : Busca clientes ativos na faixa (ordem crescente de poder, desempate por ID)
+// BF <min> <max> : Busca clientes ativos na faixa e mostra em ordem crescente de poder (desempate por id)
 void Consultoria::buscarPorFaixa(int min, int max) const {
-    Lista<int> ids_encontrados;
-    Lista<int> poderes_encontrados;
-    indice.buscaFaixa(min, max, ids_encontrados, poderes_encontrados);
+    Lista<DadoIndice> regs_encontrados;
+    indice.buscaFaixa(min, max, regs_encontrados);
 
     std::cout << "BF " << min << " " << max;
 
-    if (ids_encontrados.vazia()) { std::cout << " VAZIO\n"; }
+    if (regs_encontrados.vazia()) { std::cout << " VAZIO\n"; }
 
     else {
-        for (int i = 0; i < ids_encontrados.getTamanho(); i++) {
+        for (int i = 0; i < regs_encontrados.getTamanho(); i++) {
             std::cout << " cliente_" << (i + 1) << " " 
-                      << ids_encontrados.pesquisa(i) << " " 
-                      << poderes_encontrados.pesquisa(i);
+                      << regs_encontrados.getRegistro(i).id_cliente << " " 
+                      << regs_encontrados.getRegistro(i).poder;
         }
         std::cout << "\n";
     }
