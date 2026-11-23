@@ -19,7 +19,7 @@ private:
     NoAVL* raiz;
 
     int altura(NoAVL* p) const;
-    int fatorBalanceamento(NoAVL* p) const;
+    int FB(NoAVL* p) const;
     void atualizaAltura(NoAVL* p);
 
     NoAVL* rotacaoDireita(NoAVL* x);
@@ -48,7 +48,7 @@ public:
     void buscaFaixa(int min, int max, Lista<DadoIndice>& resultado) const override;
 
     // Extrai todos os elementos em ordem para migração de modo
-    void exportarElementos(Lista<DadoIndice>& resultado) const override;
+    void exportarElementos(Lista<DadoIndice>& registros) const override;
 
     int getTamanho() const override;
     bool vazia() const override;
