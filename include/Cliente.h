@@ -7,15 +7,11 @@ struct Cliente {
     int id;
     std::string nome;
     int poder;
-    int qtd_atributos;
-    int* build;
 
-    Cliente();
-    Cliente(int id, const std::string& nome, const int* build_entrada, int num_atributos);
-    ~Cliente();
+    Cliente() : id(-1), nome(""), poder(0) {};
+    Cliente(int id, const std::string& nome, int poder);
 
-    Cliente(const Cliente& copiado);
-    Cliente& operator=(const Cliente& copiado);
+    bool operator<(const Cliente& outro) const;
 };
 
 #endif

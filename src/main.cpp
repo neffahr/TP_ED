@@ -10,6 +10,7 @@ int main() {
     char modo_inicial;
     cin >> comando >> modo_inicial;
     Consultoria consultoria(modo_inicial);
+    cout << comando << " " << modo_inicial << "\n";
 
     while (cin >> comando) {
 

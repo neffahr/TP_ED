@@ -22,7 +22,7 @@ void FilaPrioridade::Redimensionar() {
     capacidade = nova_capacidade;
 }
 
-bool vemAntes(const NoHeap& a, const NoHeap& b) {
+bool FilaPrioridade::vemAntes(const NoHeap& a, const NoHeap& b) const {
     if (a.prioridade != b.prioridade) {
         return a.prioridade > b.prioridade;
     }

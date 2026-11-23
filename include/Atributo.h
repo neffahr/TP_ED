@@ -9,6 +9,8 @@ struct Atributo {
 
     Atributo() : id(-1), nome("") {}
     Atributo(int id, const std::string& nome);
+
+    bool operator<(const Atributo& outro) const;
 };
 
 #endif

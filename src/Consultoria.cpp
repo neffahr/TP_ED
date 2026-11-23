@@ -21,19 +21,24 @@ void Consultoria::cadastrarAtributo(const std::string& nome) {
 // C <nome> <k> <id_attr_1> <val_1> ... : Cadastra um novo Cliente e insere no índice
 void Consultoria::cadastrarCliente(const std::string& nome, int k, const int* ids_atributos, const int* valores) {
     int num_atributos = indice.getNumAtributos();
-    int* build_densa = new int[num_atributos]();
+    int* build = new int[num_atributos]();
 
     for (int i = 0; i < k; i++) {
-        build_densa[ids_atributos[i]] = valores[i];
+        build[ids_atributos[i]] = valores[i];
+    }
+
+    int poder = 0;
+    for (int i = 0; i < num_atributos; i++) {
+        poder += build[i];
     }
 
     int id_cliente = clientes.getTamanho();
-    Cliente novo_cliente(id_cliente, nome, build_densa, num_atributos);
+    Cliente novo_cliente(id_cliente, nome, poder);
     clientes.insereFinal(novo_cliente);
 
     indice.insere(novo_cliente.poder, id_cliente);
 
-    delete[] build_densa;
+    delete[] build;
 
     std::cout << "C " << id_cliente << " " << novo_cliente.poder << "\n";
 }

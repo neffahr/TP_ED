@@ -9,7 +9,7 @@ OBJ_DIR = obj
 BIN_DIR = bin
 
 # Nome do executável exigido pela especificação
-TARGET = $(BIN_DIR)/tp1.out
+TARGET = $(BIN_DIR)/tp2.out
 
 # Busca automática por todos os arquivos .cpp na pasta src/
 SOURCES = $(wildcard $(SRC_DIR)/*.cpp)

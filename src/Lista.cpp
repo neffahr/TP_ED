@@ -1,4 +1,5 @@
 #include "Lista.h"
+#include "Atributo.h"
 #include "Cliente.h"
 #include "EstruturaIndice.h"
 
@@ -75,4 +76,6 @@ template <typename T>
 bool Lista<T>::vazia() const { return tamanho == 0; }
 
 template class Lista<Cliente>;
+template class Lista<Atributo>;
+template class Lista<int>;
 template class Lista<DadoIndice>;
