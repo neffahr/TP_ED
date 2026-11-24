@@ -1,6 +1,5 @@
 #include "Mapa.h"
 #include <stdexcept>
-#include <climits>
 
 Mapa::Mapa(int capacidade_inicial) {
     capacidade = (capacidade_inicial > 0) ? capacidade_inicial : CAPACIDADE_INICIAL;
@@ -63,10 +62,6 @@ int Mapa::adicionarRegiao(const std::string& nome) {
 }
 
 void Mapa::adicionarRota(int origem, int destino, int custo) {
-    if (origem < 0 || origem >= num_vertices || destino < 0 || destino >= num_vertices) {
-        throw std::out_of_range("ERRO: Regiao invalida ao inserir rota!");
-    }
-
     listas[origem] = new Aresta(destino, custo, listas[origem]); // Insere elemento de aresta no início da lista
     if (origem != destino) {
         listas[destino] = new Aresta(origem, custo, listas[destino]);
@@ -76,7 +71,6 @@ void Mapa::adicionarRota(int origem, int destino, int custo) {
 
 
 std::string Mapa::getNomeRegiao(int id) const {
-    if (id < 0 || id >= num_vertices) throw std::out_of_range("ERRO: ID de regiao invalido!");
     return rotulos[id];
 }
 
@@ -90,6 +84,5 @@ int Mapa::getIdRegiao(const std::string& nome) const {
 }
 
 const Aresta* Mapa::getVizinhos(int id_regiao) const {
-    if (id_regiao < 0 || id_regiao >= num_vertices) throw std::out_of_range("ERRO: ID de regiao invalido!");
     return listas[id_regiao];
 }

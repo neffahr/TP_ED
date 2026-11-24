@@ -1,9 +1,8 @@
 #include "Consultoria.h"
 #include <iostream>
-#include <iomanip>
 
-Consultoria::Consultoria() : indice(), mapa(), fila(), conectividade() {}
-Consultoria::Consultoria(char modo) : indice(modo), mapa(), fila(), conectividade() {}
+Consultoria::Consultoria() : indice(), fila(), mapa(), conectividade() {}
+Consultoria::Consultoria(char modo) : indice(modo), fila(), mapa(), conectividade() {}
 Consultoria::~Consultoria() {}
 
 // E <modo> : Muda a estrutura do indice
